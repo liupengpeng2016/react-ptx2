@@ -1,0 +1,33 @@
+@function px($size){
+  @return $size/640*1rem;
+}
+@keyframes loading {
+  0% {
+    -webkit-transform:rotate(0deg);
+  }
+  100% {
+    -webkit-transform:rotate(360deg);
+  }
+}
+.loading{
+  position:fixed;
+  top:0;
+  left:0;
+  z-index:10;
+  width:100%;
+  height:100%;
+  img{
+    position:absolute;
+    top:0;
+    left:0;
+    right:0;
+    bottom:0;
+    width:px(100);
+    height:px(100);
+    margin:auto;
+    &:last-child{
+      -webkit-animation:loading 2s linear infinite;
+    }
+  }
+
+}

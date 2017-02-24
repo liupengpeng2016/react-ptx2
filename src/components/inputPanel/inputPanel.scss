@@ -1,0 +1,11 @@
+@function px($size){
+  @return $size/640*1rem;
+}
+.operate-panel{
+  font-size: px(20);
+  width:100%;
+  height:px(200);
+  position:fixed;
+  bottom:px(60);
+  resize:none;
+}

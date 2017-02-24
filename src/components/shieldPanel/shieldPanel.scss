@@ -1,0 +1,8 @@
+@function px($size) {
+  @return $size/640*1rem;
+}
+.data-panel{
+  font-size: px(20);
+  height:1rem;
+  background:pink;
+}

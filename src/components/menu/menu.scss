@@ -1,0 +1,46 @@
+@function px($size){
+  @return $size/640*1rem;
+}
+.browser-menu {
+    font-size: px(20);
+    background: white;
+    margin:px(40) 0;
+
+    li{
+      padding:{
+        left:px(40);
+      }
+    }
+    a {
+        display: block;
+        line-height:px(30);
+        padding:{
+          right:px(30);
+        }
+        background:url(images/btn_arrow@3x.png) no-repeat right center;
+        background-size:px(14) px(22);
+        background-origin:content-box;
+        border-bottom: 1px solid #e1e1e1;
+    }
+
+    li:nth-of-type(1){
+      background:url(images/icon_20_71@3x.png) no-repeat px(20) center;
+      background-size:px(20) px(20);
+
+    }
+    li:nth-of-type(2){
+      background:url(images/icon_20_72@3x.png) no-repeat px(20) center;
+      background-size:px(20) px(20);
+    }
+    li:nth-of-type(3){
+      background:url(images/icon_20_73@3x.png) no-repeat px(20) center;
+      background-size:px(20) px(20);
+    }
+    li:nth-of-type(4){
+      background:url(images/icon_20_74@3x.png) no-repeat px(20) center;
+      background-size:px(20) px(20);
+      a{
+        border:none;
+      }
+    }
+}

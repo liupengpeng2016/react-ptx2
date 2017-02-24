@@ -1,0 +1,28 @@
+.browser-menu {
+  font-size: 0.03125rem;
+  background: white;
+  margin: 0.0625rem 0; }
+  .browser-menu li {
+    padding-left: 0.0625rem; }
+  .browser-menu a {
+    display: block;
+    line-height: 0.04688rem;
+    padding-right: 0.04688rem;
+    background: url(images/btn_arrow@3x.png) no-repeat right center;
+    background-size: 0.02187rem 0.03438rem;
+    background-origin: content-box;
+    border-bottom: 1px solid #e1e1e1; }
+  .browser-menu li:nth-of-type(1) {
+    background: url(images/icon_20_71@3x.png) no-repeat 0.03125rem center;
+    background-size: 0.03125rem 0.03125rem; }
+  .browser-menu li:nth-of-type(2) {
+    background: url(images/icon_20_72@3x.png) no-repeat 0.03125rem center;
+    background-size: 0.03125rem 0.03125rem; }
+  .browser-menu li:nth-of-type(3) {
+    background: url(images/icon_20_73@3x.png) no-repeat 0.03125rem center;
+    background-size: 0.03125rem 0.03125rem; }
+  .browser-menu li:nth-of-type(4) {
+    background: url(images/icon_20_74@3x.png) no-repeat 0.03125rem center;
+    background-size: 0.03125rem 0.03125rem; }
+    .browser-menu li:nth-of-type(4) a {
+      border: none; }

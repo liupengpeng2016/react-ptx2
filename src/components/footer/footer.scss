@@ -1,0 +1,21 @@
+@function px($size){
+  @return $size/640*1rem;
+}
+.footer{
+  font:{
+    size:px(30);
+  }
+  width:100%;
+  position:fixed;
+  bottom:0;
+  line-height: px(60);
+  background:#999;
+  display:flex;
+  align-items: center;
+  justify-content: center;
+  img{
+    font-size: px(30);
+    width:px(40);
+    height:px(40);
+  }
+}

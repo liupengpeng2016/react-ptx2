@@ -1,0 +1,36 @@
+@function px($size){
+  @return $size/640*1rem;
+}
+body,ol, ul, h1, h2, h3, h4, h5, h6, p, th, td, dl, dd, form, fieldset, legend, input, textarea, select {
+  margin: 0;
+  padding: 0;
+}
+body {
+  line-height: 1;
+  -webkit-tap-highlight-color:transparent;
+  background: #aaa;
+  padding:{
+    bottom:px(300);
+  }
+  font-size:medium;
+}
+
+a {
+  color: #808285;
+  text-decoration: none;
+}
+em {
+  font-style: normal;
+}
+
+li {
+  list-style: none;
+}
+
+img {
+  border: 0;
+  display:block;
+}
+.hide{
+  display:none;
+}
