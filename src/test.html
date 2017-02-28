@@ -7,9 +7,18 @@
   <title>Document</title>
 </head>
 <body>
-  <script>
-      var a=function(){ }
-      console.log(typeof(a.name))
+  <div id="youkuplayer" style="width:480px;height:400px;border:1px solid;"></div>
+  <script type="text/javascript" src="http://player.youku.com/jsapi"></script>
+  <script type="text/javascript">
+  player = new YKU.Player('youkuplayer',{
+  styleid: '0',
+  client_id: 'fae87ce3df95b29b',
+  vid: 'XMjUyODY4NDQwMA',
+  newPlayer: true,
+  autoplay: true,
+  show_related: false
+  });
+
   </script>
 </body>
 </html>

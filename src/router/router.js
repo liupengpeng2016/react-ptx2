@@ -12,6 +12,7 @@ const router = (
       <Route path='classifyFilter' component={ClassifyPanel}/>
       <Route path='urlFilter' component={ShieldPanel}/>
       <Route path='whiteList' component={ShieldPanel}/>
+      <Route path='sensitiveWordsList' component={ShieldPanel}/>
       <Route path='searchFilter' component={ShieldPanel}/>
       <Route path='recordList' component={RecordPanel}/>
     </Route>

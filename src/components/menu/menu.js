@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router'
 import './menu.css'
+import {getBaseParams} from '../../config/config.js'
 class Menu extends Component {
   render() {
     return (
@@ -11,6 +12,9 @@ class Menu extends Component {
         <li><Link to='/whiteList'>白名单</Link></li>
       </ul>
     )
+  }
+  componentWillMount() {
+    getBaseParams()
   }
 }
 export default Menu
