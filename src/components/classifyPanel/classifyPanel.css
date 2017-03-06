@@ -1,2 +1,25 @@
 .classify-panel {
   width: 100%; }
+
+.checkbox-title, .checkbox-class {
+  display: inline-block;
+  width: 0.04688rem;
+  height: 0.04688rem;
+  border: 1px solid; }
+
+.checkbox-title-selected:before {
+  content: '';
+  display: inline-block;
+  background: green;
+  width: 0.04688rem;
+  height: 0.04688rem; }
+
+.checkbox-class-selected:before {
+  content: '';
+  display: inline-block;
+  background: green;
+  width: 0.04688rem;
+  height: 0.04688rem; }
+
+.toggle-subclass ~ dd {
+  display: none; }

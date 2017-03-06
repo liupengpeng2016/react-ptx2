@@ -1,7 +1,16 @@
 .data-panel {
   font-size: 0.03125rem;
-  height: 1rem;
-  background: pink; }
-  .data-panel li {
-    line-height: 0.04688rem;
-    text-align: center; }
+  height: 100%;
+  width: 100%;
+  position: absolute;
+  display: flex;
+  text-align: center; }
+
+.data-panel li {
+  line-height: 0.04688rem; }
+
+.empty-data-tip {
+  margin: auto; }
+
+.empty-data-tip-hide {
+  display: none; }

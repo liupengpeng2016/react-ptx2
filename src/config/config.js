@@ -27,7 +27,6 @@ export const getBaseParams= function() {
       // throw new Error('查询参数为空')
     }
   }
-  console.log(baseParams)
   return baseParams
 }
 //适配尺寸

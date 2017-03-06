@@ -3,10 +3,18 @@
 }
 .data-panel{
   font-size: px(20);
-  height:1rem;
-  background:pink;
+  height:100%;
+  width:100%;
+  position:absolute;
+  display:flex;
+  text-align: center;
   li{
     line-height:px(30);
-    text-align: center;
   }
+}
+.empty-data-tip{
+  margin:auto;
+}
+.empty-data-tip-hide{
+  display:none;
 }

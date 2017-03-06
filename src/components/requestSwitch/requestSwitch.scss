@@ -1,0 +1,44 @@
+@function px($size) {
+  @return $size/640*1rem;
+}
+.switch{
+  line-height: px(20);
+  font-size: px(16);
+  li:first-child{
+    display:flex;
+    background: white;
+    margin-bottom: px(20);
+    padding:0 px(20);
+    justify-content: space-between;
+    align-items: center;
+    line-height: px(50);
+    &>p{
+    }
+    &>div{
+      flex:0 1 px(100);
+      position:relative;
+      background:#ddd;
+      border-radius:px(10);
+      height:px(20);
+      &>p{
+        position:absolute;
+        width:px(20);
+        height:px(20);
+        border:1px solid;
+        border-radius:px(10);
+        background:white;
+        left:0;
+        -webkit-transition:left .1s linear;
+        top:0;
+        bottom:0;
+        margin:auto 0;
+      }
+    }
+  }
+}
+#button-switch{
+  left:px(80);
+}
+#button-bg-switch{
+  background:green;
+}

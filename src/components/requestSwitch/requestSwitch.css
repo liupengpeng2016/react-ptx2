@@ -1,0 +1,35 @@
+.switch {
+  line-height: 0.03125rem;
+  font-size: 0.025rem; }
+  .switch li:first-child {
+    display: flex;
+    background: white;
+    margin-bottom: 0.03125rem;
+    padding: 0 0.03125rem;
+    justify-content: space-between;
+    align-items: center;
+    line-height: 0.07812rem; }
+    .switch li:first-child > div {
+      flex: 0 1 0.15625rem;
+      position: relative;
+      background: #ddd;
+      border-radius: 0.01562rem;
+      height: 0.03125rem; }
+      .switch li:first-child > div > p {
+        position: absolute;
+        width: 0.03125rem;
+        height: 0.03125rem;
+        border: 1px solid;
+        border-radius: 0.01562rem;
+        background: white;
+        left: 0;
+        -webkit-transition: left .1s linear;
+        top: 0;
+        bottom: 0;
+        margin: auto 0; }
+
+#button-switch {
+  left: 0.125rem; }
+
+#button-bg-switch {
+  background: green; }
