@@ -7,6 +7,9 @@
   height: 0.04688rem;
   border: 1px solid; }
 
+.subclass {
+  padding-left: 0.04688rem; }
+
 .checkbox-title-selected:before {
   content: '';
   display: inline-block;

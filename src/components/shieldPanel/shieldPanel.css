@@ -5,12 +5,22 @@
   position: absolute;
   display: flex;
   text-align: center; }
-
-.data-panel li {
-  line-height: 0.04688rem; }
+  .data-panel li {
+    line-height: 0.04688rem; }
 
 .empty-data-tip {
   margin: auto; }
 
 .empty-data-tip-hide {
   display: none; }
+
+.shield-control {
+  width: 30px;
+  height: 30px;
+  border-radius: 15px;
+  background: #aaa; }
+
+.shield-control:after {
+  content: '...';
+  line-height: 30px;
+  text-align: center; }
