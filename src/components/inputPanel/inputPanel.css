@@ -4,14 +4,12 @@
   height: 0.3125rem;
   position: fixed;
   bottom: 0.09375rem; }
-
-.operate-panel p {
-  height: 0.0625rem;
-  line-height: 0.0625rem;
-  display: flex;
-  justify-content: space-between; }
-
-.operate-panel textarea {
-  height: 0.25rem;
-  width: 100%;
-  resize: none; }
+  .operate-panel p {
+    height: 0.0625rem;
+    line-height: 0.0625rem;
+    display: flex;
+    justify-content: space-between; }
+  .operate-panel textarea {
+    height: 0.25rem;
+    width: 100%;
+    resize: none; }

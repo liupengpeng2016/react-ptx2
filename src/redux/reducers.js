@@ -40,11 +40,11 @@ const visibility= function(
 }
 
 //数据删除函数
-function stateDel(state, val, list, key) {
+function stateDel(state, val, list, key1, key2) {
   let obj = Object.assign({}, state)
-  for(let i in obj[list]){
-    if(obj[list][i][key] === val){
-      delete obj[list][i]
+  for(let i = 0; i< obj[list].length; i++){
+    if(obj[list][i][key1] || obj[list][i][key2] === val){
+      obj[list].splice(i,1)
       return obj
     }
   }
@@ -99,9 +99,9 @@ const fetchData = function(state = {
     case RECEIVE_TOGGLE_CLASSLIST:
     return toggleClass(state, action.data)
     case RECEIVE_DEL_ONE_REQUESTRECORD:
-    return stateDel(state, action.data, 'requestList', 'user_record_id')
+    return stateDel(state, action.data, 'requestList', 'user_record_id')//待修改
     case RECEIVE_DEL_ONE_SHIELDRECORD:
-    return stateDel(state, action.data, 'shieldList', 'user_record_id')
+    return stateDel(state, action.data, 'shieldList', 'user_record_id')//待修改
     case RECEIVE_DEL_ALL_REQUESTRECORD:
     return Object.assign({}, state.data, {requestList: []})
     case RECEIVE_DEL_ALL_SHIELDRECORD:
@@ -113,11 +113,11 @@ const fetchData = function(state = {
     case RECEIVE_ADD_WHITELIST:
     return stateAdd(state, action.data, 'whiteList')
     case RECEIVE_DEL_ONE_BLACKLIST:
-    return stateDel(state, action.data.address_filtering_id, 'blackList', 'address_filtering_id')
+    return stateDel(state, action.data.address_filtering_id, 'blackList', 'address_filtering_id', 'id')
     case RECEIVE_DEL_ONE_WHITELIST:
-    return stateDel(state, action.data.address_filtering_id, 'whiteList', 'address_filtering_id')
+    return stateDel(state, action.data.address_filtering_id, 'whiteList', 'address_filtering_id', '')
     case RECEIVE_DEL_ONE_SENSITIVEWORDSLIST:
-    return stateDel(state, action.data[0].keyword_id, 'sensitiveWordsList', 'id')
+    return stateDel(state, action.data[0].keyword_id, 'sensitiveWordsList', 'id', '')
     case RECEIVE_SWITCH_STATE:
     return Object.assign({}, state,
       {switchState: state.switchState === 1 ? state.switchState = 0 : state.switchState = 1}
