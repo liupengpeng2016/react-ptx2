@@ -42,13 +42,6 @@ class ClassifyPanel extends Component {
       </div>
     )
   }
-  // shouldComponentUpdate(){
-  //   console.log('should')
-  //   return true
-  // }
-  // componentWillReceiveProps(){
-  //   console.log('receive')
-  // }
   toggleSubClass(e){
     if(e.target.className === 'toggle-subclass'){
       e.target.className = ''
@@ -59,9 +52,9 @@ class ClassifyPanel extends Component {
   handleClick(id, selected, isSub, e) {
     e.stopPropagation()
     if(selected){
-      this.props.dispatch(closeClassFilter({filter_lable_id_list: [id], isSub}))
+      this.props.dispatch(closeClassFilter({filter_lable_id_list: [id]}))
     }else{
-      this.props.dispatch(openClassFilter({filter_lable_id_list: [id], isSub}))
+      this.props.dispatch(openClassFilter({filter_lable_id_list: [id]}))
     }
   }
   componentWillMount(){

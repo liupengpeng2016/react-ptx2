@@ -7,5 +7,15 @@
   height:px(200);
   position:fixed;
   bottom:px(60);
-  resize:none;
+  p{
+    height:px(40);
+    line-height: px(40);
+    display:flex;
+    justify-content: space-between;
+  }
+  textarea{
+    height:px(160);
+    width:100%;
+    resize:none;
+  }
 }

@@ -6,9 +6,9 @@ import {
   fetchBlackList,
   fetchWhiteList,
   fetchSensitiveWordsList,
-  delWhiteList,
-  delBlackList,
-  delSensitiveWordsList,
+  willDelWhiteList,
+  willDelBlackList,
+  willDelSensitiveWordsList,
   setVisibility
 } from '../../redux/actions.js'
 class ShieldPanel extends Component {
@@ -19,9 +19,9 @@ class ShieldPanel extends Component {
         <ul>
           {
             data.map((val,i) => (
-              <li key={i}>{val.keyword || val.keywords || val.url_address}
-                <span className='shield_control'
-                  onClick={this.handleClick.bind(this)}
+              <li key={i}>{val.keyword || val.keywords || val.url_address || val.url}
+                <span className='shield-control'
+                  onClick={this.handleClick.bind(this, val.id || val.address_filtering_id)}
                 ></span>
               </li>
             ))
@@ -38,22 +38,19 @@ class ShieldPanel extends Component {
       </div>
     )
   }
-  handleClick(){
+  handleClick(id){
     const {
-      dispatch,
-      willDelBlackList,
-      willDelWhiteList,
-      willDelSensitiveWordsList
+      dispatch
     } = this.props
     const loc = location.href
     if(/\/urlFilter/.test(loc)){
-      dispatch(delBlackList(willDelBlackList))
-    }else if(/\/whiteList/.test(loc)){
-      dispatch(delWhiteList(willDelWhiteList))
+      dispatch(willDelBlackList(id))
+    }else if(/\/whiteList/.test(id)){
+      dispatch(willDelWhiteList(id))
     }else if(/\/searchFilte/.test(loc)){
-      dispatch(delSensitiveWordsList(willDelSensitiveWordsList))
+      dispatch(willDelSensitiveWordsList(id))
     }
-    this.props.dispatch(setVisibility('confirmModify'))
+    this.props.dispatch(setVisibility({confirmModify: true}))
   }
   componentWillMount() {
     const {dispatch} = this.props
@@ -73,19 +70,16 @@ function mapToState(state) {
   const loc = location.href
   if(/\/urlFilter/.test(loc)){
     return {
-      willDelBlackList: state.modifyData.delBlackList,
       data: state.fetchData.blackList,
       emptyDataTip: ['未设置自定义过滤网站，点击下方按钮添加', '例如：www.baidu.com']
     }
   }else if(/\/whiteList/.test(loc)){
     return {
-      willDelWhiteList: state.modifyData.delWhiteList,
       data: state.fetchData.whiteList,
       emptyDataTip: ['葡萄可能会屏蔽你认为无害的信息', '白名单允许你的孩子访问这些信息，避免误屏蔽']
     }
   }else if(/\/searchFilter/.test(loc)){
     return {
-      willDelSensitiveWordsList: state.modifyData.delSensitiveWordsList,
       data: state.fetchData.sensitiveWordsList,
       emptyDataTip: ['未设置自定义过滤关键词，点击下方按钮添加', '例如：一夜情']
     }

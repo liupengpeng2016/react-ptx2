@@ -15,16 +15,13 @@ import {
   RECEIVE_DEL_ONE_WHITELIST,
   RECEIVE_DEL_ONE_BLACKLIST,
   RECEIVE_DEL_ONE_SENSITIVEWORDSLIST,
-  RECEIVE_ADD_ONE_BLACKLIST,
-  RECEIVE_ADD_ONE_SENSITIVEWORDSLIST,
-  RECEIVE_ADD_ONE_WHITELIST,
+  RECEIVE_ADD_BLACKLIST,
+  RECEIVE_ADD_SENSITIVEWORDSLIST,
+  RECEIVE_ADD_WHITELIST,
   RECEIVE_SWITCH_STATE,
-  DEL_BLACKLIST,
-  DEL_WHITELIST,
-  DEL_SENSITIVEWORDSLIST,
-  ADD_BLACKLIST,
-  ADD_WHITELIST,
-  ADD_SENSITIVEWORDSLIST
+  WILL_DEL_BLACKLIST,
+  WILL_DEL_WHITELIST,
+  WILL_DEL_SENSITIVEWORDSLIST
 } from './actionTypes.js'
 
 const visibility= function(
@@ -36,49 +33,47 @@ const visibility= function(
   action){
   switch(action.type) {
     case SET_VISIBILITY:
-    return Object.assign({}, state, {[action.id]: !state[action.id]})
+    return Object.assign({}, state, action.data)
     default:
     return state
   }
 }
 
 //数据删除函数
-function stateDel(state, data, list, key) {
+function stateDel(state, val, list, key) {
   let obj = Object.assign({}, state)
   for(let i in obj[list]){
-    if(obj[list][i][key] === data){
+    if(obj[list][i][key] === val){
       delete obj[list][i]
       return obj
     }
   }
+  return obj
 }
 //数据添加函数
 function stateAdd(state, data, list){
-  let obj = Object.assign({}, state)
-  obj[list].push(data)
+  const obj = Object.assign({}, state)
+  obj[list] = obj[list].concat(data)
   return obj
 }
 //分类列表TOGGLE
 function toggleClass(state, data) {
   let obj = Object.assign({}, state)
   for(let i = 0; i<obj.classList.length; i++){
-    if(data.isSub){
-      for(let k = 0; k<(obj.classList[i].subclass || 0).length; k++){
-        if(obj.classList[i].subclass[k].filter_lable_id === data.filter_lable_id_list[0]){
-            obj.classList[i].subclass[k].selected = !obj.classList[i].subclass[k].selected
-            break
-        }
-      }
-    }else{
-      if(obj.classList[i].filter_lable_id === data.filter_lable_id_list[0]){
-          obj.classList[i].selected = !obj.classList[i].selected
-          break
+    if(data[0].id === obj.classList[i].filter_lable_id){
+      obj.classList[i].selected = !obj.classList[i].selected
+      return obj
+    }
+    for(let k = 0; k < (obj.classList[i].subclass || []).length; k++){
+      if(data[0].id === obj.classList[i].subclass[k].filter_lable_id){
+        obj.classList[i].subclass[k].selected = !obj.classList[i].subclass[k].selected
+        return obj
       }
     }
   }
   return obj
 }
-//ajax请求数据
+//请求数据
 const fetchData = function(state = {
   blackList: [],
   classList: [],
@@ -86,7 +81,7 @@ const fetchData = function(state = {
   sensitiveWordsList: [],
   shieldRecord: [],
   requestRecord: [],
-  switchState: '1'
+  switchState: 0
 }, action) {
   switch(action.type){
     case RECEIVE_BLACKLIST:
@@ -111,47 +106,38 @@ const fetchData = function(state = {
     return Object.assign({}, state.data, {requestList: []})
     case RECEIVE_DEL_ALL_SHIELDRECORD:
     return Object.assign({}, state.data, {shieldList: []})
-    case RECEIVE_ADD_ONE_SENSITIVEWORDSLIST:
+    case RECEIVE_ADD_SENSITIVEWORDSLIST:
     return stateAdd(state, action.data, 'sensitiveWordsList' )
-    case RECEIVE_ADD_ONE_BLACKLIST:
+    case RECEIVE_ADD_BLACKLIST:
     return stateAdd(state, action.data, 'blackList')
-    case RECEIVE_ADD_ONE_WHITELIST:
+    case RECEIVE_ADD_WHITELIST:
     return stateAdd(state, action.data, 'whiteList')
     case RECEIVE_DEL_ONE_BLACKLIST:
-    return stateDel(state, action.data, 'blacklist', 'address_filtering_id')
+    return stateDel(state, action.data.address_filtering_id, 'blackList', 'address_filtering_id')
     case RECEIVE_DEL_ONE_WHITELIST:
-    return stateDel(state, action.data, 'whiteList', 'address_filtering_id')
+    return stateDel(state, action.data.address_filtering_id, 'whiteList', 'address_filtering_id')
     case RECEIVE_DEL_ONE_SENSITIVEWORDSLIST:
-    return stateDel(state, action.data, 'sensitiveWordsList', 'keyword')
+    return stateDel(state, action.data[0].keyword_id, 'sensitiveWordsList', 'id')
     case RECEIVE_SWITCH_STATE:
-    return Object.assign({}, state, {switchState: action.data.switchState})
+    return Object.assign({}, state,
+      {switchState: state.switchState === 1 ? state.switchState = 0 : state.switchState = 1}
+    )
     default: return state
   }
 }
 //删改数据存放
 const modifyData = (state = {
-  delBlackList: [],
-  delWhiteList: [],
-  delSensitiveWordsList: [],
-  delShieldRecord: [],
-  delRequestRecord: [],
-  addBlackList: [],
-  addWhiteList: [],
-  addSensitiveWordsList:[]
+  willDelBlackList: [],
+  willDelWhiteList: [],
+  willDelSensitiveWordsList: []
 },action) => {
   switch(action.type){
-    case DEL_BLACKLIST:
-    return Object.assign({}, state, {delBlackList: action.data})
-    case DEL_WHITELIST:
-    return Object.assign({}, state, {delWhiteList: action.data})
-    case DEL_SENSITIVEWORDSLIST:
-    return Object.assign({}, state, {delSensitiveWordsList: action.data})
-    case ADD_BLACKLIST:
-    return Object.assign({}, state, {addBlackList: action.data})
-    case ADD_BLACKLIST:
-    return Object.assign({}, state, {addWhiteList: action.data})
-    case ADD_BLACKLIST:
-    return Object.assign({}, state, {addSensitiveWordsList: action.data})
+    case WILL_DEL_BLACKLIST:
+    return Object.assign({}, state, {willDelBlackList: action.data})
+    case WILL_DEL_WHITELIST:
+    return Object.assign({}, state, {willDelWhiteList: action.data})
+    case WILL_DEL_SENSITIVEWORDSLIST:
+    return Object.assign({}, state, {willDelSensitiveWordsList: action.data})
     default:return state
   }
 }

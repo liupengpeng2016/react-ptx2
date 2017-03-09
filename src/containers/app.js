@@ -5,19 +5,20 @@ import InputPanel from '../components/inputPanel/inputPanel.js'
 import Footer from '../components/footer/footer.js'
 import Loading from '../components/loading/loading.js'
 import ConfirmModify from '../components/confirmModify/confirmModify.js'
+
 class App extends Component {
   render() {
-    const {visibility, delBlackList, delWhiteList, delSensitiveWordsList} = this.props
+    const {visibility, willDelBlackList, willDelWhiteList, willDelSensitiveWordsList} = this.props
     return (
       <div>
         { this.props.children }
         <ConfirmModify
           visibility={visibility.confirmModify}
-          delBlackList={delBlackList}
-          delWhiteList={delWhiteList}
-          delSensitiveWordsList={delSensitiveWordsList}
+          willDelBlackList={willDelBlackList}
+          willDelWhiteList={willDelWhiteList}
+          willDelSensitiveWordsList={willDelSensitiveWordsList}
           />
-        <InputPanel/>
+        <InputPanel notice={111}/>
         <Loading/>
         <Footer/>
       </div>
@@ -27,9 +28,9 @@ class App extends Component {
 function mapToState(state){
   return {
     visibility: state.visibility,
-    delBlackList: state.modifyData.delBlackList,
-    delWhiteList: state.modifyData.delWhiteList,
-    delSensitiveWordsList: state.modifyData.delSensitiveWordsList
+    willDelBlackList: state.modifyData.willDelBlackList,
+    willDelWhiteList: state.modifyData.willDelWhiteList,
+    willDelSensitiveWordsList: state.modifyData.willDelSensitiveWordsList
   }
 }
 export default connect(mapToState)(App)

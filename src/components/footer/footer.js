@@ -10,7 +10,7 @@ class Footer extends Component {
     )
   }
   handleClick() {
-    this.props.dispatch(setVisibility('inputPanel'))
+    this.props.dispatch(setVisibility({inputPanel: true}))
   }
 }
 export default connect()(Footer)

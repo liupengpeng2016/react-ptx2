@@ -13,14 +13,13 @@ class ConfirmModify extends Component{
       display: 'none'
     }
     let id;
-    const {dispatch} = this.props
     const loc = location.href
     if(/\/urlFilter/.test(loc)){
-      id = this.props.delBlackList
+      id = this.props.willDelBlackList
     }else if(/\/whiteList/.test(loc)){
-      id = this.props.delWhiteList
+      id = this.props.willDelWhiteList
     }else if(/\/searchFilter/.test(loc)){
-      id = this.props.delSensitiveWordsList
+      id = this.props.willDelSensitiveWordsList
     }
     return (
       <dl className='confirm-modify' style={this.props.visibility ? {} : hide}>
@@ -34,16 +33,23 @@ class ConfirmModify extends Component{
     const {dispatch} = this.props
     const loc = location.href
     if(/\/urlFilter/.test(loc)){
-      dispatch(fetchDelOneBlackList({id}))
+      dispatch(fetchDelOneBlackList({address_filtering_id: id}))
     }else if(/\/whiteList/.test(loc)){
-      dispatch(fetchDelOneWhiteList({id}))
+      dispatch(fetchDelOneWhiteList({address_filtering_id: id}))
     }else if(/\/searchFilter/.test(loc)){
-      dispatch(fetchDelOneSensitiveWordsList({id}))
+      dispatch(fetchDelOneSensitiveWordsList({keyword_ids: [id]}))
     }
+    this.props.dispatch(setVisibility({confirmModify: false}))
   }
   cancel(){
-    this.props.dispatch(setVisibility('confirmModify'))
+    this.props.dispatch(setVisibility({confirmModify: false}))
   }
 }
-
-export default connect()(ConfirmModify)
+function mapToState(state){
+  return {
+    willDelBlackList: state.modifyData.willDelBlackList,
+    willDelWhiteList: state.modifyData.willDelWhiteList,
+    willDelSensitiveWordsList: state.modifyData.willDelSensitiveWordsList
+  }
+}
+export default connect(mapToState)(ConfirmModify)

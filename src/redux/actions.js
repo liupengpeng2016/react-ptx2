@@ -13,174 +13,135 @@ import {
   RECEIVE_DEL_ALL_REQUESTRECORD,
 
   RECEIVE_TOGGLE_CLASSLIST,
-  RECEIVE_ADD_ONE_BLACKLIST,
-  RECEIVE_ADD_ONE_SENSITIVEWORDSLIST,
-  RECEIVE_ADD_ONE_WHITELIST,
+  RECEIVE_ADD_BLACKLIST,
+  RECEIVE_ADD_SENSITIVEWORDSLIST,
+  RECEIVE_ADD_WHITELIST,
   RECEIVE_DEL_ONE_BLACKLIST,
   RECEIVE_DEL_ONE_WHITELIST,
   RECEIVE_DEL_ONE_SENSITIVEWORDSLIST,
 
   RECEIVE_SWITCH_STATE,
 
-  DEL_BLACKLIST,
-  DEL_WHITELIST,
-  DEL_SENSITIVEWORDSLIST,
-  ADD_WHITELIST,
-  ADD_BLACKLIST,
-  ADD_SENSITIVEWORDSLIST
+  WILL_DEL_BLACKLIST,
+  WILL_DEL_WHITELIST,
+  WILL_DEL_SENSITIVEWORDSLIST,
+  WILL_ADD_WHITELIST,
+  WILL_ADD_BLACKLIST,
+  WILL_ADD_SENSITIVEWORDSLIST
 } from './actionTypes.js'
 import fetch from 'isomorphic-fetch'
 import {getBaseParams, baseUrl} from '../config/config.js'
 //toggle visibility
-export const setVisibility = function(id) {
+export const setVisibility = function(data) {
   return {
     type: SET_VISIBILITY,
-    id
+    data
   }
 }
 //存储数据到state
-export const delBlackList = data => ({type: DEL_BLACKLIST, data})
-export const delWhiteList = data => ({type: DEL_WHITELIST, data})
-export const delSensitiveWordsList = data => ({type: DEL_SENSITIVEWORDSLIST, data})
-export const addBlackList = data => ({type: ADD_BLACKLIST, data})
-export const addWhiteList = data => ({type: ADD_WHITELIST, data})
-export const addSensitiveWordsList = data => ({type: ADD_SENSITIVEWORDSLIST, data})
-
+  //将要修改的数据
+export const willDelBlackList = data => ({type: WILL_DEL_BLACKLIST, data})
+export const willDelWhiteList = data => ({type: WILL_DEL_WHITELIST, data})
+export const willDelSensitiveWordsList = data => ({type: WILL_DEL_SENSITIVEWORDSLIST, data})
+export const willAddBlackList = data => ({type: WILL_ADD_BLACKLIST, data})
+export const willAddWhiteList = data => ({type: WILL_ADD_WHITELIST, data})
+export const willAddSensitiveWordsList = data => ({type: WILL_ADD_SENSITIVEWORDSLIST, data})
+  //列表数据
 export const receiveBlackList = data => ({type: RECEIVE_BLACKLIST, data})
 export const receiveClassList = data => ({type: RECEIVE_CLASSLIST, data})
 export const receiveWhiteList = data => ({type: RECEIVE_WHITELIST, data})
 export const receiveSensitiveWordList = data => ({type: RECEIVE_SENSITIVEWORDSLIST, data})
 export const receiveRequestList = data => ({type: RECEIVE_REQUESTLIST, data})
 export const receiveShieldList = data => ({type: RECEIVE_SHIELDLIST, data})
-
+  //正式删除的记录
 export const receiveDelOneRequestRecord = data => ({type: RECEIVE_DEL_ONE_REQUESTRECORD, data})
 export const receiveDelOneShieldRecord = data => ({type: RECEIVE_DEL_ONE_SHIELDRECORD, data})
 export const receiveDelAllRequestRecord = data => ({type: RECEIVE_DEL_ALL_REQUESTRECORD, data})
 export const receiveDelAllShieldRecord = data => ({type: RECEIVE_DEL_ALL_SHIELDRECORD, data})
-
-export const receiveAddOneSensitiveWordsList = data => ({type: RECEIVE_ADD_ONE_SENSITIVEWORDSLIST, data})
-export const receiveAddOneWhiteList = data => ({type: RECEIVE_ADD_ONE_WHITELIST, data})
-export const receiveAddOneBlackList = data => ({type: RECEIVE_ADD_ONE_BLACKLIST, data})
+  //正式删除列表项
 export const receiveDelOneSensitiveWordsList = data => ({type: RECEIVE_DEL_ONE_SENSITIVEWORDSLIST, data})
 export const receiveDelOneWhiteList = data => ({type: RECEIVE_DEL_ONE_WHITELIST, data})
 export const receiveDelOneBlackList = data => ({type: RECEIVE_DEL_ONE_BLACKLIST, data})
 export const receiveToggleClassList = data => ({type: RECEIVE_TOGGLE_CLASSLIST, data})
-
-export const receiveSwitchState = data => ({type: RECEIVE_SWITCH_STATE, data})
-
-//获取列表接口
+  //正式添加的列表项
+export const receiveAddBlackList = data => ({type: RECEIVE_ADD_BLACKLIST, data})
+export const receiveAddWhiteList = data => ({type: RECEIVE_ADD_WHITELIST, data})
+export const receiveAddSensitiveWordsList = data => ({type: RECEIVE_ADD_SENSITIVEWORDSLIST, data})
+  //请求开关状态
+export const receiveSwitchState = data => ({type: RECEIVE_SWITCH_STATE})
+//fetch
 let headers = new Headers({'Content-Type': 'application/x-www-form-urlencoded'});
 function setParams(obj) {
   return {
     method: 'POST',
     mode: 'cors',
     headers,
-    body: 'data=' + JSON.stringify(Object.assign(getBaseParams(),obj))
+    body: 'data=' + JSON.stringify(Object.assign(getBaseParams(), obj))
   }
 }
-export const fetchClassifyList = params => dispatch => {
-  dispatch(setVisibility('loading'))
-  return fetch(baseUrl + '/browser/browser/getFilterLable', setParams(params))
-  .then(res => res.json())
-  .then(json => {
-    dispatch(setVisibility('loading'))
-    return dispatch(receiveClassList(json.data))
-  })
-}
-export const fetchBlackList = params => dispatch => {
-  dispatch(setVisibility('loading'))
-  return fetch(baseUrl + '/browser/browser/getUserBlacklistV2', setParams(params))
-  .then(res => res.json())
-  .then(json => {
-    dispatch(setVisibility('loading'))
-    return dispatch(receiveBlackList(json.data))
-  })
-}
-export const fetchWhiteList = params => dispatch => {
-  dispatch(setVisibility('loading'))
-  return fetch(baseUrl + '/browser/browser/getUserWhitelistV2', setParams(params))
-  .then(res => res.json())
-  .then(json => {
-    dispatch(setVisibility('loading'))
-    return dispatch(receiveWhiteList(json.data))
-  })
-}
-export const fetchSensitiveWordsList = params => dispatch => {
-  dispatch(setVisibility('loading'))
-  return fetch(baseUrl + '/browser/browser/getUserKeywordsV2', setParams(params))
-  .then(res => res.json())
-  .then(json => {
-    dispatch(setVisibility('loading'))
-    return dispatch(receiveSensitiveWordList(json.data))
-  })
-}
-export const fetchRequestList = params => dispatch => {
-  dispatch(setVisibility('loading'))
-  return fetch(baseUrl + '/browser/browser/getUserRequestRecord', setParams(params))
-  .then(res => res.json())
-  .then(json => {
-    dispatch(setVisibility('loading'))
-    return dispatch(receiveRequestList(json.data))
-  })
-}
-export const fetchShildList = params => dispatch => {
-  dispatch(setVisibility('loading'))
-  return fetch(baseUrl + '/browser/browser/getUserBlockRecord', setParams(params))
-  .then(res => res.json())
-  .then(json => {
-    dispatch(setVisibility('loading'))
-    return dispatch(receiveShieldList(json.data))
-  })
-}
-
-//删除屏蔽内容接口
- const delShieldList = (dispatch, url, params, action ) =>{
-  dispatch(setVisibility('loading'))
+function fetchData(dispatch, url, params, action){
+  dispatch(setVisibility({loading: true}))
   return fetch(baseUrl + url, setParams(params))
   .then(res => res.json())
   .then(json => {
-    dispatch(setVisibility('loading'))
+    dispatch(setVisibility({loading: false}))
     return dispatch(action(json.data))
-  })
+  }).catch(error => console.log(error))
 }
+//获取列表接口
+export const fetchClassifyList = params => dispatch =>
+  fetchData(dispatch, '/browser/browser/getFilterLable', params, receiveClassList)
+export const fetchBlackList = params => dispatch =>
+  fetchData(dispatch, '/browser/browser/getUserBlacklistV2', params, receiveBlackList)
+export const fetchWhiteList = params => dispatch =>
+  fetchData(dispatch, '/browser/browser/getUserWhitelistV2', params, receiveWhiteList)
+export const fetchSensitiveWordsList = params => dispatch =>
+  fetchData(dispatch, '/browser/browser/getUserKeywordsV2', params, receiveSensitiveWordList)
+export const fetchRequestList = params => dispatch =>
+  fetchData(dispatch, '/browser/browser/getUserRequestRecord', params, receiveRequestList)
+export const fetchShildList = params => dispatch =>
+  fetchData(dispatch, '/browser/browser/getUserBlockRecord', params, receiveShieldList)
+
+//解除屏蔽
 export const fetchDelOneBlackList = params => dispatch => {
-  delShieldList(dispatch, '/browser/browser/deleteUserBlacklistV2', {address_filtering_id: params.id}, receiveDelOneBlackList)
+  fetchData(dispatch, '/browser/browser/deleteUserBlacklistV2', params, receiveDelOneBlackList)
 }
 export const fetchDelOneWhiteList = params => dispatch => {
-  delShieldList(dispatch, '/browser/browser/deleteUserWhitelistV2', {address_filtering_id: params.id}, receiveDelOneWhiteList)
+  fetchData(dispatch, '/browser/browser/deleteUserWhitelistV2', params, receiveDelOneWhiteList)
 }
 export const fetchDelOneSensitiveWordsList = params => dispatch => {
-  delShieldList(dispatch, '/browser/browser/deleteUserKeywordsV2', {keyword_ids: params.id}, receiveDelOneSensitiveWordsList)
+  fetchData(dispatch, '/browser/browser/deleteUserKeywordsV2', params, receiveDelOneSensitiveWordsList)
 }
-
-//删除记录接口
-function delOneRecord(dispatch, params) {
-  dispatch(setVisibility('loading'))
-  return fetch(baseUrl + '/browser/browser/deleteCategoryRecord', setParams(params))
-  .then(res => res.json())
-  .then(json => {
-    // dispatch(setVisibility('loading'))
-    // if(params.type === 'REQUEST_LIST')
-    // switch(params.type){
-    //   case 'REQUEST_RECORD':
-    //   return dispatch(receiveDelOneRequestRecord(json.data))
-    //   case 'BLACK_RECORD':
-    //   return dispatch(receiveDelOneBlackList(json.data))
-    //   case 'WHITELIST_RECORD':
-    //   return dispatch(receiveDelOneWhiteList(json.data))
-    //   default: return
-    // }
-  })
-}
-export const fetchDelOneRequestRecord = params => dispatch => delOneRecord(dispatch, params)
-export const fetchDelOneShieldRecord = params => dispatch => delOneRecord(dispatch, params)
-
+//添加屏蔽
+export const fetchAddBlackList = params => dispatch =>
+  fetchData(dispatch, '/browser/browser/addUserBlacklist', params, receiveAddBlackList)
+export const fetchAddWhiteList = params => dispatch =>
+  fetchData(dispatch, '/browser/browser/addUserWhitelistV3', params, receiveAddWhiteList)
+export const fetchAddSensitiveWordsList = params => dispatch =>
+  fetchData(dispatch, '/browser/browser/addUserKeywordsV2', params, receiveAddSensitiveWordsList)
+//分类过滤开关
+export const openClassFilter = params => dispatch =>
+  fetchData(dispatch, '/browser/browser/onFilterLable', params, receiveToggleClassList)
+export const closeClassFilter = params => dispatch =>
+  fetchData(dispatch, '/browser/browser/offFilterLable', params, receiveToggleClassList)
+//屏蔽请求状态
+export const fetchSwitchState = () => dispatch =>
+  fetchData(dispatch, '/browser/browser/getUserChildAccessH5', {}, receiveSwitchState)
+//屏蔽请求开关
+export const fetchToggleSwitch = params => dispatch =>
+  fetchData(dispatch, '/browser/browser/controlUserChildAccess', params, receiveSwitchState)
+//清除单个记录
+export const fetchDelOneRequestRecord = params => dispatch =>
+  fetchData(dispatch, '', params,receiveDelOneRequestRecord)
+export const fetchDelOneShieldRecord = params => dispatch =>
+  fetchData(dispatch, '', params,receiveDelOneShieldRecord)
+//清除所有记录
 export const delAllRecord = params => dispatch =>{
-  dispatch(setVisibility('loading'))
+  dispatch(setVisibility({loading: true}))
   return fetch(baseUrl + '/browser/browser/clearRecord', setParams(params))
   .then(res => res.json())
   .then(json => {
-    dispatch(setVisibility('loading'))
+    dispatch(setVisibility({loading: false}))
     switch(params.type){
       case 'REQUEST_RECORD':
       return dispatch(receiveDelAllRequestRecord())
@@ -189,50 +150,5 @@ export const delAllRecord = params => dispatch =>{
       return dispatch(receiveDelAllShieldRecord())
       default: return
     }
-  })
-}
-//分类过滤开关接口
-export const openClassFilter = params => {
-  return dispatch => {
-    let {filter_lable_id_list} = params
-    dispatch(setVisibility('loading'))
-    return fetch(baseUrl + '/browser/browser/onFilterLable', setParams({filter_lable_id_list}))
-    .then(res => res.json())
-    .then(json => {
-      dispatch(setVisibility('loading'))
-      return dispatch(receiveToggleClassList(params))
-    })
-  }
-}
-export const closeClassFilter = params => {
-  return dispatch => {
-    let {filter_lable_id_list} = params
-    dispatch(setVisibility('loading'))
-    return fetch(baseUrl + '/browser/browser/offFilterLable', setParams({filter_lable_id_list}))
-    .then(res => res.json())
-    .then(json => {
-      dispatch(setVisibility('loading'))
-      return dispatch(receiveToggleClassList(params))
-    })
-  }
-}
-//屏蔽请求开关
-export const fetchToggleSwitch = (params) => dispatch => {
-  dispatch(setVisibility('loading'))
-  return fetch(baseUrl + '/browser/browser/controlUserChildAccess', setParams({type: params.switchState}))
-  .then(res => res.json())
-  .then(json => {
-    dispatch(setVisibility('loading'))
-    return dispatch(receiveSwitchState(params))
-  })
-}
-//屏蔽请求状态
-export const fetchSwitchState = () => dispatch => {
-  dispatch(setVisibility('loading'))
-  return fetch(baseUrl + '/browser/browser/getUserChildAccessH5', setParams())
-  .then(res => res.json())
-  .then(json => {
-    dispatch(setVisibility('loading'))
-    return dispatch(receiveSwitchState({switchState: json.data.control_type}))
   })
 }
