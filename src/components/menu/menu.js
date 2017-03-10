@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router'
 import './menu.css'
-import {getBaseParams} from '../../config/config.js'
 import RequestSwitch from '../requestSwitch/requestSwitch.js'
 class Menu extends Component {
   render() {
@@ -17,8 +16,6 @@ class Menu extends Component {
       </div>
     )
   }
-  componentWillMount() {
-    getBaseParams()
-  }
+
 }
 export default Menu

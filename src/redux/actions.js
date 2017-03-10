@@ -4,8 +4,8 @@ import {
   RECEIVE_CLASSLIST,
   RECEIVE_WHITELIST,
   RECEIVE_SENSITIVEWORDSLIST,
-  RECEIVE_REQUESTLIST,
-  RECEIVE_SHIELDLIST,
+  RECEIVE_REQUESTRECORD,
+  RECEIVE_SHIELDRECORD,
 
   RECEIVE_DEL_ONE_SHIELDRECORD,
   RECEIVE_DEL_ONE_REQUESTRECORD,
@@ -51,8 +51,8 @@ export const receiveBlackList = data => ({type: RECEIVE_BLACKLIST, data})
 export const receiveClassList = data => ({type: RECEIVE_CLASSLIST, data})
 export const receiveWhiteList = data => ({type: RECEIVE_WHITELIST, data})
 export const receiveSensitiveWordList = data => ({type: RECEIVE_SENSITIVEWORDSLIST, data})
-export const receiveRequestList = data => ({type: RECEIVE_REQUESTLIST, data})
-export const receiveShieldList = data => ({type: RECEIVE_SHIELDLIST, data})
+export const receiveRequestRecord = data => ({type: RECEIVE_REQUESTRECORD, data})
+export const receiveShieldRecord = data => ({type: RECEIVE_SHIELDRECORD, data})
   //正式删除的记录
 export const receiveDelOneRequestRecord = data => ({type: RECEIVE_DEL_ONE_REQUESTRECORD, data})
 export const receiveDelOneShieldRecord = data => ({type: RECEIVE_DEL_ONE_SHIELDRECORD, data})
@@ -97,10 +97,10 @@ export const fetchWhiteList = params => dispatch =>
   fetchData(dispatch, '/browser/browser/getUserWhitelistV2', params, receiveWhiteList)
 export const fetchSensitiveWordsList = params => dispatch =>
   fetchData(dispatch, '/browser/browser/getUserKeywordsV2', params, receiveSensitiveWordList)
-export const fetchRequestList = params => dispatch =>
-  fetchData(dispatch, '/browser/browser/getUserRequestRecord', params, receiveRequestList)
-export const fetchShildList = params => dispatch =>
-  fetchData(dispatch, '/browser/browser/getUserBlockRecord', params, receiveShieldList)
+export const fetchRequestRecord = params => dispatch =>
+  fetchData(dispatch, '/browser/browser/getUserRequestRecord', params, receiveRequestRecord)
+export const fetchShieldRecord = params => dispatch =>
+  fetchData(dispatch, '/browser/browser/getUserBlockRecord', params, receiveShieldRecord)
 
 //解除屏蔽
 export const fetchDelOneBlackList = params => dispatch => {

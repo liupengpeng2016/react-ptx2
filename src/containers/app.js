@@ -5,6 +5,7 @@ import InputPanel from '../components/inputPanel/inputPanel.js'
 import Footer from '../components/footer/footer.js'
 import Loading from '../components/loading/loading.js'
 import ConfirmModify from '../components/confirmModify/confirmModify.js'
+import {getBaseParams} from '../config/config.js'
 
 class App extends Component {
   render() {
@@ -23,6 +24,9 @@ class App extends Component {
         <Footer/>
       </div>
     )
+  }
+  componentWillMount() {
+    getBaseParams()
   }
 }
 function mapToState(state){
